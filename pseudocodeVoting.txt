@@ -1,0 +1,36 @@
+BEGIN
+    DECLARE jumlahPemilih
+    DECLARE array suara
+    DECLARE aduk ← 0
+    DECLARE tidakAduk ← 0
+
+    DISPLAY "Voting Bubur"
+    DISPLAY "1. Bubur Diaduk"
+    DISPLAY "2. Bubur Tidak Diaduk"
+    INPUT jumlahPemilih
+
+    FOR i ← 1 TO jumlahPemilih DO
+        DISPLAY "Pemilih ke-i pilih (1/2)"
+        INPUT suara[i]
+
+        IF suara[i] = 1 THEN
+            aduk ← aduk + 1
+        ELSE IF suara[i] = 2 THEN
+            tidakAduk ← tidakAduk + 1
+        ELSE
+            DISPLAY "Pilihan tidak valid, suara tidak dihitung"
+        ENDIF
+    ENDFOR
+
+    DISPLAY "Hasil Voting"
+    DISPLAY "Bubur Diaduk : ", aduk, " suara"
+    DISPLAY "Bubur Tidak Diaduk : ", tidakAduk, " suara"
+
+    IF aduk > tidakAduk THEN
+        DISPLAY "Pemenang: TIM BUBUR DIADUK"
+    ELSE IF tidakAduk > aduk THEN
+        DISPLAY "Pemenang: TIM BUBUR TIDAK DIADUK"
+    ELSE
+        DISPLAY "Hasil Seri"
+    ENDIF
+END

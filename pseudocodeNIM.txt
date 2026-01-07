@@ -1,0 +1,85 @@
+BEGIN
+
+    DECLARE list DataSiswa
+    DECLARE pilihan
+
+    FUNCTION hitungNilai(siswa)
+        nilaiAkhir ← (0.4 × tugas) + (0.3 × uts) + (0.3 × uas)
+
+        IF nilaiAkhir ≥ 90 THEN
+            grade ← 'A'
+        ELSE IF nilaiAkhir ≥ 80 THEN
+            grade ← 'B'
+        ELSE IF nilaiAkhir ≥ 70 THEN
+            grade ← 'C'
+        ELSE IF nilaiAkhir ≥ 60 THEN
+            grade ← 'D'
+        ELSE
+            grade ← 'E'
+        ENDIF
+    END FUNCTION
+
+    PROCEDURE tambahSiswa
+        INPUT id, nama, tugas, uts, uas
+        CALL hitungNilai
+        SIMPAN data siswa ke DataSiswa
+        DISPLAY "Data siswa berhasil ditambahkan"
+    END PROCEDURE
+
+    PROCEDURE tampilData
+        IF DataSiswa kosong THEN
+            DISPLAY "Data siswa kosong"
+        ELSE
+            FOR setiap siswa dalam DataSiswa
+                DISPLAY id, nama, tugas, uts, uas, nilaiAkhir, grade
+            ENDFOR
+        ENDIF
+    END PROCEDURE
+
+    PROCEDURE ubahSiswa
+        INPUT id
+        FOR setiap siswa dalam DataSiswa
+            IF siswa.id = id THEN
+                INPUT tugas baru, uts baru, uas baru
+                CALL hitungNilai
+                DISPLAY "Data berhasil diubah"
+                RETURN
+            ENDIF
+        ENDFOR
+        DISPLAY "ID siswa tidak ditemukan"
+    END PROCEDURE
+
+    PROCEDURE hapusSiswa
+        INPUT id
+        FOR i ← 0 TO jumlah DataSiswa - 1
+            IF DataSiswa[i].id = id THEN
+                HAPUS DataSiswa[i]
+                DISPLAY "Data berhasil dihapus"
+                RETURN
+            ENDIF
+        ENDFOR
+        DISPLAY "ID siswa tidak ditemukan"
+    END PROCEDURE
+
+    DO
+        DISPLAY menu CRUD
+        INPUT pilihan
+
+        SWITCH pilihan
+            CASE 1:
+                CALL tambahSiswa
+            CASE 2:
+                CALL tampilData
+            CASE 3:
+                CALL ubahSiswa
+            CASE 4:
+                CALL hapusSiswa
+            CASE 0:
+                DISPLAY "Program selesai"
+            DEFAULT:
+                DISPLAY "Pilihan tidak valid"
+        END SWITCH
+
+    WHILE pilihan ≠ 0
+
+END
